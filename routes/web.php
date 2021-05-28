@@ -1,18 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\TamuController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
+
+Route::get('/masuk',[UserController::class,'masuk'])->name('user.masuk');
+Route::post('/masuk',[UserController::class,'prosesMasuk'])->name('user.prosesMasuk');
+
+Route::get('/daftar',[UserController::class,'daftar'])->name('user.daftar');
+Route::post('/daftar',[UserController::class,'prosesDaftar'])->name('user.prosesDaftar');
