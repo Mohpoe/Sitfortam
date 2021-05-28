@@ -5,7 +5,7 @@
 - [Rencana Work Flow](#rencana-work-flow)
 
 # Deskripsi[^](#daftar-isi)
- Aplikasi Web SitForTam (Sistem Informasi Tamu) - Kantor Gubernur Sulawesi Selatan
+ Aplikasi Web SitForTam (Sistem Informasi Tamu) - Kantor Gubernur Sulawesi Selatan. _Deskripsi tentang aplikasi ini masih perlu ditambahkan di sini._
 
 # Keterangan Migration[^](#daftar-isi)
 Beberapa keterangan tabel ada di migration
