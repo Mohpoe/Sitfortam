@@ -33,7 +33,6 @@ class CreateUsersTable extends Migration
 			 * 2 = Pejabat (yang dikunjungi tamu) => teknisnya akan digunakan oleh stafnya
 			 *     sebagaipengontrol status pejabat (ada | sibuk | tidak ada)
 			 * 3 = Petugas piket (penerima tamu)
-			 * 9 = Tamu
 			 */
 			$table->tinyInteger('peran');
 			$table->timestamps();

@@ -25,6 +25,11 @@
 				<ul class="navbar-nav mr-auto">
 					@if(session()->has('nama'))
 						<li class="nav-item">
+							<a class="nav-link" href="{{ route('tamu.beranda') }}">
+								Beranda
+							</a>
+						</li>
+						<li class="nav-item">
 							<a class="nav-link" href="{{ route('user.daftar') }}">
 								Daftar
 							</a>
@@ -46,12 +51,13 @@
 		</div>
 	</nav>
 	<div class="container">
-		<h2 class="my-4">{{ $judul }}</h2>
 
-		<hr>
+		<div class="py-4 d-flex justify-content-end align-items-center">
+			<h1 class="h2 mr-auto">{{ $judul }}</h1>
+			@yield('inline_menu')
+		</div>
 
 		@yield('isi')
-
 	</div>
 	<script src="/js/bootstrap.bundle.min.js"></script>
 </body>
