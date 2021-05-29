@@ -55,19 +55,19 @@
     </div>
 
     <div class="form-group">
-        <label for="sandi">Sandi</label>
-        <input type="password" class="form-control w-50" id="sandi" name="sandi"
-            value="{{ old('sandi') }}">
-        @error('sandi')
+        <label for="password">Sandi</label>
+        <input type="password" class="form-control w-50" id="password" name="password"
+            value="{{ old('password') }}">
+        @error('password')
             <div class="text-danger">{{ $message }}</div>
         @enderror
     </div>
 
     <div class="form-group">
-        <label for="sandi_confirmation">Konfirmasi Sandi</label>
-        <input type="password" class="form-control w-50" id="sandi_confirmation" name="sandi_confirmation"
-            value="{{ old('sandi_confirmation') }}">
-        @error('sandi_confirmation')
+        <label for="password_confirmation">Konfirmasi Sandi</label>
+        <input type="password" class="form-control w-50" id="password_confirmation" name="password_confirmation"
+            value="{{ old('password_confirmation') }}">
+        @error('password_confirmation')
             <div class="text-danger">{{ $message }}</div>
         @enderror
     </div>

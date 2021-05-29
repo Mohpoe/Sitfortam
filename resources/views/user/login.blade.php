@@ -21,7 +21,7 @@
 
     <div class="form-group">
         <label for="sandi">Kata Sandi</label>
-        <input type="password" class="form-control w-50" id="sandi" name="sandi"
+        <input type="password" class="form-control w-50" id="sandi" name="password"
             value="{{ old('sandi') }}">
         @error('sandi')
             <div class="text-danger">{{ $message }}</div>

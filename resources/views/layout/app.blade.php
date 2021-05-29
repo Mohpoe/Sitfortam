@@ -1,3 +1,6 @@
+@php
+	$judul = $judul ?? "";
+@endphp
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -7,7 +10,9 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<link href="/css/bootstrap.min.css" rel="stylesheet">
-	<title>Sistem Informasi Tamu</title>
+	<title>
+		{{ $judul == '' ? '' : $judul.' '.config('app.pemisah', '-').' ' }}{{ config('app.name', 'Sitfortam') }}
+	</title>
 </head>
 
 <body>
@@ -18,21 +23,24 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbar">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item">
-						<a class="nav-link" href="#">
-							Menu 1
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">
-							Menu 2
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">
-							Menu 3
-						</a>
-					</li>
+					@if(session()->has('nama'))
+						<li class="nav-item">
+							<a class="nav-link" href="{{ route('user.daftar') }}">
+								Daftar
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ route('user.keluar') }}">
+								Keluar
+							</a>
+						</li>
+					@else
+						<li class="nav-item">
+							<a class="nav-link" href="{{ route('user.masuk') }}">
+								Masuk
+							</a>
+						</li>
+					@endif
 				</ul>
 			</div>
 		</div>
