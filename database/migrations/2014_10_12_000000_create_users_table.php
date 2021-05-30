@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
 			 */
 			$table->enum('jenis_kelamin',[0,1]);
 			$table->string('jabatan')->nullable();
-			$table->string('sandi');
+			$table->string('password')->nullable();
 			/**
 			 * Peran terdiri dari:
 			 * 0 = Developer (most powerful user)

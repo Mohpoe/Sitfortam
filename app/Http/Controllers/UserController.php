@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+	public function __construct()
+	{
+		$this->middleware('initial');
+	}
+
 	public function masuk()
 	{
 		return view('user.login', ['judul' => 'Masuk']);
@@ -86,12 +91,26 @@ class UserController extends Controller
 			'peran' => 'required|in:2,3',
 		]);
 
-		return "Sip";
+		User::where('id',$user->id)->update([
+			'nama' => $request->nama,
+			'nama_lengkap' => $request->nama_lengkap,
+			'jenis_kelamin' => $request->jenis_kelamin,
+			'jabatan' => $request->jabatan,
+			'password' => ($request->password <> '' ? Hash::make($request->password) : $user->password),
+			'peran' => $request->peran,
+		]);
+
+		return redirect(route('tamu.beranda'))->with('pesan',"Pengguna dengan nama $user->nama_lengkap telah diperbarui");
 	}
 
 	public function prosesHapus(User $user)
 	{
 		$user->delete();
 		return redirect(route('tamu.beranda'))->with('pesan',"Pengguna dengan nama $user->nama_lengkap telah dihapus!");
+	}
+
+	public function test()
+	{
+		return view('test');
 	}
 }
