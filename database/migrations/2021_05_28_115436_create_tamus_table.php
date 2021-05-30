@@ -22,9 +22,10 @@ class CreateTamusTable extends Migration
 			 * 1 = Perempuan
 			 * Tidak ada lagi selain itu!
 			 */
-			$table->enum('jenis_kelamin',[0, 1]);
-			$table->string('jabatan');
-			$table->string('instansi');
+			$table->enum('jenis_kelamin', [0, 1]);
+			$table->string('jabatan')->nullable();
+			$table->string('instansi')->nullable();
+			$table->string('user');
 			$table->timestamps();
 		});
 	}

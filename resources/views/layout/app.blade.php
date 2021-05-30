@@ -30,10 +30,22 @@
 							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="{{ route('user.daftar') }}">
-								Daftar
+							<a class="nav-link" href="{{ route('tamu.list') }}">
+								Buku Tamu
 							</a>
 						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ route('tamu.tambah') }}">
+								Tambah Tamu
+							</a>
+						</li>
+						@can('create',App\Models\User::class)
+							<li class="nav-item">
+								<a class="nav-link" href="{{ route('user.daftar') }}">
+									Daftar
+								</a>
+							</li>
+						@endcan
 						<li class="nav-item">
 							<a class="nav-link" href="{{ route('user.keluar') }}">
 								Keluar

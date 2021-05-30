@@ -11,8 +11,8 @@
     @csrf
 
     <div class="form-group">
-        <label for="nama">Nama Pengguna <i>(Username)</i></label>
-        <input type="text" class="form-control w-50" id="nama" name="nama"
+        <label for="nama">Nama Pengguna</label>
+        <input type="text" class="form-control w-50" id="nama" name="nama" placeholder="Hanya huruf kecil dan angka, harus diawali dengan huruf"
             value="{{ old('nama') ?? $user->nama }}" autofocus>
         @error('nama')
             <div class="text-danger">{{ $message }}</div>
@@ -21,7 +21,7 @@
 
     <div class="form-group">
         <label for="nama_lengkap">Nama Lengkap</label>
-        <input type="text" class="form-control w-50" id="nama_lengkap" name="nama_lengkap"
+        <input type="text" class="form-control w-50" id="nama_lengkap" name="nama_lengkap" placeholder="Masukkan nama lengkap"
             value="{{ old('nama_lengkap') ?? $user->nama_lengkap }}">
         @error('nama_lengkap')
             <div class="text-danger">{{ $message }}</div>
@@ -47,7 +47,7 @@
 
     <div class="form-group">
         <label for="jabatan">Jabatan</label>
-        <input type="text" class="form-control w-50" id="jabatan" name="jabatan"
+        <input type="text" class="form-control w-50" id="jabatan" name="jabatan" placeholder="Masukkan nama jabatan"
             value="{{ old('jabatan') ?? $user->jabatan }}">
         @error('jabatan')
             <div class="text-danger">{{ $message }}</div>
@@ -75,11 +75,17 @@
 	<div class="form-group">
 		<label>Peran</label>
 		<div>
-			<div class="form-check form-check">
+			@if (App\Models\User::where('nama',session()->get('nama'))->first()->peran == 0)
+				<div class="form-check">
+					<input type="radio" name="peran" id="admin" class="form-check-input" value="1" {{ (old('peran') ?? $user->peran) == 1 ? 'checked' : '' }}>
+					<label for="admin" class="form-check-label">Admin</label>
+				</div>
+			@endif
+			<div class="form-check">
 				<input class="form-check-input" type="radio" name="peran" id="pejabat" value="2" {{ (old('peran') ?? $user->peran) == 2 ? 'checked' : '' }}>
 				<label class="form-check-label" for="pejabat">Pejabat</label>
 			</div>
-			<div class="form-check form-check">
+			<div class="form-check">
 				<input class="form-check-input" type="radio" name="peran" id="piket" value="3" {{ (old('peran') ?? $user->peran) == 3 ? 'checked' : '' }}>
 				<label class="form-check-label" for="piket">Petugas Piket</label>
 			</div>

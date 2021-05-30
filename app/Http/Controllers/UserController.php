@@ -45,12 +45,12 @@ class UserController extends Controller
 		$this->authorize('create', User::class);
 
 		$validateData = $request->validate([
-			'nama' => 'required|min:3|max:20|unique:users,nama',
+			'nama' => 'required|min:3|max:20|unique:users,nama|regex:/^[a-z][a-z0-9]*$/',
 			'nama_lengkap' => 'required',
 			'jenis_kelamin' => 'required|in:0,1',
 			'jabatan' => 'required',
 			'password' => 'required|confirmed',
-			'peran' => 'required|in:2,3',
+			'peran' => 'required|'.User::where('nama',session()->get('nama'))->first()->peran == 0 ? 'in:1,2,3' : 'in:2,3',
 		]);
 
 		$user = new User;
@@ -62,7 +62,7 @@ class UserController extends Controller
 		$user->peran = $request->peran;
 		$user->save();
 
-		return redirect(route('user.daftar'))->with('pesan', "Pengguna dengan nama $request->nama telah ditambahkan!");
+		return redirect(route('tamu.beranda'))->with('pesan', "Pengguna dengan nama $request->nama telah ditambahkan!");
 	}
 
 	public function keluar()
@@ -83,12 +83,12 @@ class UserController extends Controller
 		$this->authorize('create', User::class);
 
 		$validateData = $request->validate([
-			'nama' => 'required|min:3|max:20|unique:users,nama,'.$user->id,
+			'nama' => 'required|min:3|max:20|unique:users,nama,'.$user->id,'|regex:/^[a-z][a-z0-9]*$/',
 			'nama_lengkap' => 'required',
 			'jenis_kelamin' => 'required|in:0,1',
 			'jabatan' => 'required',
 			'password' => 'confirmed',
-			'peran' => 'required|in:2,3',
+			'peran' => 'required|'.User::where('nama',session()->get('nama'))->first()->peran == 0 ? 'in:1,2,3' : 'in:2,3',
 		]);
 
 		User::where('id',$user->id)->update([
@@ -107,10 +107,5 @@ class UserController extends Controller
 	{
 		$user->delete();
 		return redirect(route('tamu.beranda'))->with('pesan',"Pengguna dengan nama $user->nama_lengkap telah dihapus!");
-	}
-
-	public function test()
-	{
-		return view('test');
 	}
 }
