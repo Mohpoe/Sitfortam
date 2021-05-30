@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
 			 */
 			$table->enum('jenis_kelamin',[0,1]);
 			$table->string('jabatan')->nullable();
-			$table->string('sandi');
+			$table->string('password')->nullable();
 			/**
 			 * Peran terdiri dari:
 			 * 0 = Developer (most powerful user)
@@ -33,7 +33,6 @@ class CreateUsersTable extends Migration
 			 * 2 = Pejabat (yang dikunjungi tamu) => teknisnya akan digunakan oleh stafnya
 			 *     sebagaipengontrol status pejabat (ada | sibuk | tidak ada)
 			 * 3 = Petugas piket (penerima tamu)
-			 * 9 = Tamu
 			 */
 			$table->tinyInteger('peran');
 			$table->timestamps();

@@ -63,6 +63,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 		'masuk' => \App\Http\Middleware\UserMiddleware::class,
-		'peran' => \App\Http\Middleware\PeranMiddleware::class,
+		'initial' => \App\Http\Middleware\InitialMiddleware::class,
     ];
 }
