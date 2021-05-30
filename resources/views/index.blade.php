@@ -1,13 +1,15 @@
 @extends('layout.app')
 
 @php
+	use App\Models\User;
 	$jenis_peran = ['Developer','Administrator','Pejabat','Petugas Piket'];
-	$peran = $users->where('nama',session()->get('nama'))->first()->peran;
+	// $peran = $users->where(['nama' => session()->get('nama')])->first()->peran;
+	$peran = User::where('nama',session()->get('nama'))->first()->peran;
 	$lebar_tabel = [7,7,6,6];
 @endphp
 
 @section('inline_menu')
-@can('create',App\Model\User::class)
+@can('create',User::class)
 	<a href="{{ route('user.daftar') }}" class="btn btn-primary">
 		Tambah Pengguna
 	</a>
@@ -47,7 +49,7 @@
 							<td>{{ $user->nama_lengkap }}</td>
 							<td>{{ $user->jenis_kelamin == 0 ? "Laki-laki" : "Perempuan" }}
 							</td>
-							<td>{{ $user->jabatan }}</td>
+							<td>{{ $user->jabatan ?? 'N/A' }}</td>
 							<td>{{ $jenis_peran[$user->peran] }}</td>
 							@if($peran <= 1)
 								<td>
@@ -61,7 +63,7 @@
 							@endif
 						</tr>
 					@empty
-						<td colspan="{{ $lebar_tabel[$peran] }}" class="text-center">Tidak ada data...</td>
+						<td colspan="{{ $lebar_tabel[$peran] }}" class="text-center"><i>Tidak ada data...</i></td>
 					@endforelse
 				</tbody>
 			</table>

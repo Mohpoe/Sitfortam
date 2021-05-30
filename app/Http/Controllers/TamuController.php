@@ -9,6 +9,8 @@ class TamuController extends Controller
 {
     public function index()
 	{
-		return view('index',['judul' => 'Tabel Daftar Pengguna','users' => User::all()]);
+		// $me = User::where('peran','<>',0);
+		// dump($me);
+		return view('index',['judul' => 'Tabel Daftar Pengguna','users' => User::where('peran','<>','0')]);
 	}
 }
