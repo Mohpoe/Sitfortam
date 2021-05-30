@@ -14,8 +14,8 @@ Route::post('/daftar',[UserController::class,'prosesDaftar'])->name('user.proses
 
 Route::get('/keluar',[UserController::class,'keluar'])->name('user.keluar')->middleware('masuk');
 
-Route::get('/ubah/{nama}',[UserController::class,'ubah'])->name('user.ubah')->middleware('can:create,user');
-Route::patch('/ubah/{nama}',[UserController::class,'prosesUbah'])->name('user.prosesUbah')->middleware('can:create,user');
+Route::get('/ubah/{nama}',[UserController::class,'ubah'])->name('user.ubah');
+Route::patch('/ubah/{user}',[UserController::class,'prosesUbah'])->name('user.prosesUbah');
 Route::delete('/hapus/{nama}',[UserController::class,'prosesHapus'])->name('user.hapus');
 
 // Route::patch('/mahasiswas/{mahasiswa}', [MahasiswaController::class,'update'])->name('mahasiswas.update');

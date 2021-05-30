@@ -31,6 +31,7 @@ class UserController extends Controller
 
 	public function daftar()
 	{
+		$this->authorize('create', User::class);
 		return view('user.register', ['judul' => 'Daftar']);
 	}
 
@@ -65,14 +66,27 @@ class UserController extends Controller
 		return redirect(route('user.masuk'))->with('pesan', 'Berhasil mengeluarkan akun');
 	}
 
-	public function ubah()
+	public function ubah($nama)
 	{
-		return view('user.edit',['judul' => 'Ubah Pengguna']);
+		$this->authorize('create', User::class);
+		$user = User::where('nama',$nama)->first();
+		return view('user.edit',['judul' => 'Ubah Pengguna','user' => $user]);
 	}
 
-	public function prosesUbah(Request $request)
+	public function prosesUbah(Request $request, User $user)
 	{
-		//
+		$this->authorize('create', User::class);
+
+		$validateData = $request->validate([
+			'nama' => 'required|min:3|max:20|unique:users,nama,'.$user->id,
+			'nama_lengkap' => 'required',
+			'jenis_kelamin' => 'required|in:0,1',
+			'jabatan' => 'required',
+			'password' => 'confirmed',
+			'peran' => 'required|in:2,3',
+		]);
+
+		return "Sip";
 	}
 
 	public function prosesHapus(User $user)

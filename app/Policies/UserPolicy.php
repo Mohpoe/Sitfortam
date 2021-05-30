@@ -21,7 +21,8 @@ class UserPolicy
 
     public function create(User $user)
     {
-        return ($user->peran === 0) OR ($user->peran === 1);
+        return ($user->peran === 0)
+			or ($user->peran === 1);
     }
 
     public function update(User $user, User $model)
