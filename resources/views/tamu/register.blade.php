@@ -56,6 +56,14 @@
 		@enderror
 	</div>
 
+	<div class="form-group">
+		<label for="instansi">Tujuan/Keterangan</label>
+		<textarea class="form-control w-50" name="ket" id="ket" rows="3">{{ old('ket') }}</textarea>
+		@error('instansi')
+			<div class="text-danger">{{ $message }}</div>
+		@enderror
+	</div>
+
 	<button type="submit" class="btn btn-primary my-2">Tambah ke Buku Tamu</button>
 </form>
 @endsection

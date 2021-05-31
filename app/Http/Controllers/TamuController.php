@@ -43,6 +43,7 @@ class TamuController extends Controller
 			'jenis_kelamin' => 'required|in:0,1',
 			'jabatan' => '',
 			'instansi' => '',
+			'ket' => 'required',
 		]);
 
 		$tamu = new Tamu;
@@ -50,6 +51,7 @@ class TamuController extends Controller
 		$tamu->jenis_kelamin = $request->jenis_kelamin;
 		$tamu->jabatan = $request->jabatan;
 		$tamu->instansi = $request->instansi;
+		$tamu->ket = $request->ket;
 		$tamu->user = session()->get('nama');
 		$tamu->save();
 
