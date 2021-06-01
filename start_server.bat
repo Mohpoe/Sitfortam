@@ -1,3 +1,3 @@
-START D:\ProgramFiles\xampp\xampp-control.exe
-START "" "C:\Program Files\Microsoft VS Code\Code.exe"
+START "" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\XAMPP\XAMPP Control Panel.lnk"
+START "" "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\Visual Studio Code.lnk"
 php artisan serve
