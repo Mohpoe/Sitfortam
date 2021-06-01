@@ -16,14 +16,7 @@ class TamuController extends Controller
 
     public function index()
 	{
-		$peran = User::where('nama',session()->get('nama'))->first()->peran;
-		if ($peran == 0) {
-			$show = User::where('nama','<>','admin')->get();
-		} else {
-			$show = User::where('peran','>',1)->get();
-		}
-
-		return view('index',['judul' => 'Tabel Daftar Pengguna','users' => $show]);
+		return view('index',['judul' => 'Tabel Daftar Pejabat','users' => User::where('peran','2')->get()]);
 	}
 
 	public function bukuTamu()
@@ -49,20 +42,26 @@ class TamuController extends Controller
 			'tujuan' => 'required',
 		]);
 
-		$tamu = new Tamu;
-		$tamu->nama_tamu = $request->nama_tamu;
-		$tamu->jenis_kelamin = $request->jenis_kelamin;
-		$tamu->jabatan = $request->jabatan;
-		$tamu->instansi = $request->instansi;
-		$tamu->ket = $request->ket;
-		$tamu->tujuan = $request->tujuan;
-		$tamu->user = session()->get('nama');
-		$tamu->save();
 		$user_tujuan = User::where('nama',$request->tujuan)->first();
-		$user_tujuan->status = '1';
-		$user_tujuan->save();
+		if ($user_tujuan->status = '0') {
+			$user_tujuan->status = '1';
+			$user_tujuan->save();
 
-		return redirect(route('tamu.list'))->with('pesan',"Berhasil menambahkan $request->nama_tamu sebagai pengunjung");
+			$tamu = new Tamu;
+			$tamu->nama_tamu = $request->nama_tamu;
+			$tamu->jenis_kelamin = $request->jenis_kelamin;
+			$tamu->jabatan = $request->jabatan;
+			$tamu->instansi = $request->instansi;
+			$tamu->ket = $request->ket;
+			$tamu->tujuan = $request->tujuan;
+			$tamu->user = session()->get('nama');
+			$tamu->save();
+
+			return redirect(route('tamu.list'))->with('pesan',"Berhasil menambahkan $request->nama_tamu sebagai pengunjung");
+		} else {
+			return redirect(route('tamu.tambah'))->with('pesan',"$user_tujuan->nama_lengkap tidak dapat dikunjungi saat ini");
+		}
+
 	}
 
 	public function detail(Tamu $tamu)

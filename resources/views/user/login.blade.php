@@ -15,7 +15,7 @@
         <input type="text" class="form-control w-50" id="nama" name="nama"
             value="{{ old('nama') }}">
         @error('nama')
-            <div class="text-danger">{{ $message }}</div>
+            <div class="invalid-tooltip">{{ $message }}</div>
         @enderror
     </div>
 
@@ -24,7 +24,7 @@
         <input type="password" class="form-control w-50" id="sandi" name="password"
             value="{{ old('sandi') }}">
         @error('sandi')
-            <div class="text-danger">{{ $message }}</div>
+            <div class="invalid-tooltip">{{ $message }}</div>
         @enderror
     </div>
 

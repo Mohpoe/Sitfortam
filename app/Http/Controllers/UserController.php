@@ -14,6 +14,21 @@ class UserController extends Controller
 		$this->middleware('initial');
 	}
 
+	public function pengguna()
+	{
+		$this->middleware('masuk');
+		$this->authorize('create', User::class);
+
+		$peran = User::where('nama',session()->get('nama'))->first()->peran;
+		if ($peran == 0) {
+			$show = User::where('nama','<>','admin')->get();
+		} else {
+			$show = User::where('peran','>',1)->get();
+		}
+
+		return view('user.list',['judul' => 'Tabel Daftar Pengguna','users' => $show]);
+	}
+
 	public function masuk()
 	{
 		return view('user.login', ['judul' => 'Masuk']);
@@ -110,5 +125,10 @@ class UserController extends Controller
 		$user = User::where('nama',$nama)->first();
 		$user->delete();
 		return redirect(route('tamu.beranda'))->with('pesan',"Pengguna dengan nama $user->nama_lengkap telah dihapus!");
+	}
+
+	public function profil()
+	{
+		return view('user.profile',['judul' => 'Profil Pengguna']);
 	}
 }

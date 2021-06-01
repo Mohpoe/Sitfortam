@@ -14,8 +14,9 @@
         <label for="nama">Nama Pengguna</label>
         <input type="text" class="form-control w-50" id="nama" name="nama" placeholder="Hanya huruf kecil dan angka, harus diawali dengan huruf"
             value="{{ old('nama') ?? $user->nama }}" autofocus>
+			<small class="form-text text-muted">Hanya huruf kecil dan angka, harus diawali dengan huruf</small>
         @error('nama')
-            <div class="text-danger">{{ $message }}</div>
+            <div class="invalid-tooltip">{{ $message }}</div>
         @enderror
     </div>
 
@@ -24,7 +25,7 @@
         <input type="text" class="form-control w-50" id="nama_lengkap" name="nama_lengkap" placeholder="Masukkan nama lengkap"
             value="{{ old('nama_lengkap') ?? $user->nama_lengkap }}">
         @error('nama_lengkap')
-            <div class="text-danger">{{ $message }}</div>
+            <div class="invalid-tooltip">{{ $message }}</div>
         @enderror
     </div>
 
@@ -41,7 +42,7 @@
 			</div>
 		</div>
         @error('jenis_kelamin')
-            <div class="text-danger">{{ $message }}</div>
+            <div class="invalid-tooltip">{{ $message }}</div>
         @enderror
 	</div>
 
@@ -50,7 +51,7 @@
         <input type="text" class="form-control w-50" id="jabatan" name="jabatan" placeholder="Masukkan nama jabatan"
             value="{{ old('jabatan') ?? $user->jabatan }}">
         @error('jabatan')
-            <div class="text-danger">{{ $message }}</div>
+            <div class="invalid-tooltip">{{ $message }}</div>
         @enderror
     </div>
 
@@ -59,7 +60,7 @@
         <input type="password" class="form-control w-50" id="password" name="password"
             value="{{ old('password') }}">
         @error('password')
-            <div class="text-danger">{{ $message }}</div>
+            <div class="invalid-tooltip">{{ $message }}</div>
         @enderror
     </div>
 
@@ -68,7 +69,7 @@
         <input type="password" class="form-control w-50" id="password_confirmation" name="password_confirmation"
             value="{{ old('password_confirmation') }}">
         @error('password_confirmation')
-            <div class="text-danger">{{ $message }}</div>
+            <div class="invalid-tooltip">{{ $message }}</div>
         @enderror
     </div>
 
@@ -91,7 +92,7 @@
 			</div>
 		</div>
         @error('peran')
-            <div class="text-danger">{{ $message }}</div>
+            <div class="invalid-tooltip">{{ $message }}</div>
         @enderror
 	</div>
 

@@ -11,6 +11,7 @@ class UserPolicy
 
 	public function tambahTamu(User $user)
 	{
+		// KHUSUS UNTUK DEV DAN PETUGAS PIKET
 		return ($user->peran === 0)
 			or ($user->peran === 3);
 	}
@@ -27,6 +28,7 @@ class UserPolicy
 
 	public function create(User $user)
 	{
+		// KHUSUS UNTUK DEV DAN ADMIN
 		return ($user->peran === 0)
 			or ($user->peran === 1);
 	}

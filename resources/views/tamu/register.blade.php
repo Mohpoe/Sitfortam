@@ -1,5 +1,9 @@
 @extends('layout.app')
 
+@php
+	$id = $_GET['id'] ?? '';
+@endphp
+
 @section('isi')
 <div class="container mb-2">
 	@if(session()->has('pesan'))
@@ -16,7 +20,7 @@
 			<input type="text" class="form-control w-50" id="nama_tamu" name="nama_tamu" value="{{ old('nama_tamu') }}"
 				autofocus>
 			@error('nama_tamu')
-			<div class="text-danger">{{ $message }}</div>
+			<div class="invalid-tooltip">{{ $message }}</div>
 			@enderror
 		</div>
 
@@ -35,7 +39,7 @@
 				</div>
 			</div>
 			@error('jenis_kelamin')
-			<div class="text-danger">{{ $message }}</div>
+			<div class="invalid-tooltip">{{ $message }}</div>
 			@enderror
 		</div>
 
@@ -43,7 +47,7 @@
 			<label for="jabatan">Jabatan</label>
 			<input type="text" class="form-control w-50" id="jabatan" name="jabatan" value="{{ old('jabatan') }}">
 			@error('jabatan')
-			<div class="text-danger">{{ $message }}</div>
+			<div class="invalid-tooltip">{{ $message }}</div>
 			@enderror
 		</div>
 
@@ -51,7 +55,7 @@
 			<label for="instansi">Instansi/Perwakilan</label>
 			<input type="text" class="form-control w-50" id="instansi" name="instansi" value="{{ old('instansi') }}">
 			@error('instansi')
-			<div class="text-danger">{{ $message }}</div>
+			<div class="invalid-tooltip">{{ $message }}</div>
 			@enderror
 		</div>
 
@@ -59,7 +63,7 @@
 			<label for="instansi">Tujuan/Keterangan</label>
 			<textarea class="form-control w-50" name="ket" id="ket" rows="3">{{ old('ket') }}</textarea>
 			@error('instansi')
-			<div class="text-danger">{{ $message }}</div>
+			<div class="invalid-tooltip">{{ $message }}</div>
 			@enderror
 		</div>
 
@@ -69,17 +73,17 @@
 				@if (App\Models\User::where('peran',2)->get()->isEmpty())
 				<div class="form-control-plaintext w-50">Tidak ada data!</div>
 				@else
-				@foreach (App\Models\User::where('peran',2)->get() as $pejabat)
+				@foreach (App\Models\User::where('peran',2)->where('status','0')->get() as $pejabat)
 				<div class="form-check">
-					<input type="radio" name="tujuan" id="{{ $pejabat->nama }}" class="form-check-input" {{ old('tujuan') == $pejabat->nama ? 'checked' : '' }}
-						value="{{ $pejabat->nama }}">
+					<input type="radio" name="tujuan" id="{{ $pejabat->nama }}" class="form-check-input"
+						{{ ((old('tujuan') == $pejabat->nama) or (Illuminate\Support\Facades\Hash::check($pejabat->nama, $id) == true)) ? 'checked' : '' }} value="{{ $pejabat->nama }}">
 					<label for="{{ $pejabat->nama }}" class="form-check-label">{{ $pejabat->nama_lengkap }}</label>
 				</div>
 				@endforeach
 				@endif
 			</div>
 			@error('tujuan')
-			<div class="text-danger">{{ $message }}</div>
+			<div class="invalid-tooltip">{{ $message }}</div>
 			@enderror
 		</div>
 

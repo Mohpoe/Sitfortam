@@ -1,5 +1,8 @@
 @php
-	$judul = $judul ?? "";
+$judul = $judul ?? "";
+if (session()->has('nama')) {
+$user = App\Models\User::where('nama',session()->get('nama'))->first();
+}
 @endphp
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -24,39 +27,52 @@
 			<div class="collapse navbar-collapse" id="navbar">
 				<ul class="navbar-nav mr-auto">
 					@if(session()->has('nama'))
-						<li class="nav-item">
-							<a class="nav-link" href="{{ route('tamu.beranda') }}">
-								Beranda
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="{{ route('tamu.list') }}">
-								Buku Tamu
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="{{ route('tamu.tambah') }}">
-								Tambah Tamu
-							</a>
-						</li>
-						@can('create',App\Models\User::class)
-							<li class="nav-item">
-								<a class="nav-link" href="{{ route('user.daftar') }}">
-									Daftar
-								</a>
-							</li>
-						@endcan
-						<li class="nav-item">
-							<a class="nav-link" href="{{ route('user.keluar') }}">
-								Keluar
-							</a>
-						</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{ route('tamu.beranda') }}">
+							Beranda
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{ route('tamu.list') }}">
+							Buku Tamu
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{ route('tamu.tambah') }}">
+							+ Tamu
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{ route('user.pengguna') }}">
+							Tabel Pengguna
+						</a>
+					</li>
+					@can('create',App\Models\User::class)
+					<li class="nav-item">
+						<a class="nav-link" href="{{ route('user.daftar') }}">
+							+ Pengguna
+						</a>
+					</li>
+					@endcan
+					<li class="nav-item">
+						<a class="nav-link" href="{{ route('user.keluar') }}">
+							Keluar
+						</a>
+					</li>
 					@else
-						<li class="nav-item">
-							<a class="nav-link" href="{{ route('user.masuk') }}">
-								Masuk
-							</a>
-						</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{ route('user.masuk') }}">
+							Masuk
+						</a>
+					</li>
+					@endif
+				</ul>
+
+				<ul class="navbar-nav ml-auto">
+					@if (session()->has('nama'))
+					<li class="nav-item">
+						<small><a href="{{ route('user.profil') }}" class="nav-link text-light">Halo {{ $user->nama_lengkap }}! </a></small>
+					</li>
 					@endif
 				</ul>
 			</div>
@@ -74,4 +90,9 @@
 	<script src="/js/bootstrap.bundle.min.js"></script>
 </body>
 
+<footer class="bg-dark py-3 text-white mt-4">
+	<div class="container text-center">
+		<small><i><a href="/" class="text-light">Sitfortam - Sistem Informasi Tamu</a> | Copyright &copy; {{ date('Y') }} | <a href="https://github.com/Mohpoe/Sitfortam/" class="text-light">Made with &hearts;</a></i></small>
+	</div>
+</footer>
 </html>
