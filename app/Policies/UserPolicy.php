@@ -9,6 +9,12 @@ class UserPolicy
 {
 	use HandlesAuthorization;
 
+	public function saya(User $user)
+	{
+		// HANYA DIRI SENDIRI YANG BISA UPDATE PROFIL HALAMAN PROFIL
+		return ($user->nama === session()->get('nama'));
+	}
+
 	public function tambahTamu(User $user)
 	{
 		// KHUSUS UNTUK DEV DAN PETUGAS PIKET

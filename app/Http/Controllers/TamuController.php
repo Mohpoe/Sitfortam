@@ -14,9 +14,9 @@ class TamuController extends Controller
 		$this->middleware('masuk');
 	}
 
-    public function index()
+    public function pejabat()
 	{
-		return view('index',['judul' => 'Tabel Daftar Pejabat','users' => User::where('peran','2')->get()]);
+		return view('pejabat',['judul' => 'Tabel Daftar Pejabat','users' => User::where('peran','2')->get()]);
 	}
 
 	public function bukuTamu()
@@ -33,7 +33,7 @@ class TamuController extends Controller
 	public function prosesTambah(Request $request)
 	{
 		$this->authorize('tambahTamu', User::class);
-		$validateData = $request->validate([
+		$request->validate([
 			'nama_tamu' => 'required|min:2|max:30',
 			'jenis_kelamin' => 'required|in:0,1',
 			'jabatan' => '',
@@ -43,7 +43,7 @@ class TamuController extends Controller
 		]);
 
 		$user_tujuan = User::where('nama',$request->tujuan)->first();
-		if ($user_tujuan->status = '0') {
+		if ($user_tujuan->status == '0') {
 			$user_tujuan->status = '1';
 			$user_tujuan->save();
 

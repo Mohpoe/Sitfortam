@@ -96,6 +96,32 @@
         @enderror
 	</div>
 
+	@if ($user->peran == 2)
+	<div class="form-group">
+		<label>Status Kehadiran</label>
+		<div>
+			<div class="form-check">
+				<input class="form-check-input" type="radio" name="status" id="ada" value="0"
+				{{ (old('status') ?? $user->status) == 0 ? 'checked' : '' }}>
+				<label class="form-check-label" for="ada">Ada</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="radio" name="status" id="sibuk" value="1"
+				{{ (old('status') ?? $user->status) == 1 ? 'checked' : '' }}>
+				<label class="form-check-label" for="sibuk">Sibuk</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="radio" name="status" id="tidak_ada" value="2"
+				{{ (old('status') ?? $user->status) == 2 ? 'checked' : '' }}>
+				<label class="form-check-label" for="tidak_ada">Tidak Ada</label>
+			</div>
+		</div>
+		@error('nama')
+		<div class="invalid-tooltip">{{ $message }}</div>
+		@enderror
+	</div>
+	@endif
+
     <button type="submit" class="btn btn-primary my-2">Simpan</button>
 </form>
 @endsection

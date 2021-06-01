@@ -1,7 +1,11 @@
 @extends('layout.app')
 
+@php
+use App\Models\User;
+@endphp
+
 @section('inline_menu')
-@can('tambahTamu',App\Models\User::class)
+@can('tambahTamu',User::class)
 <a href="{{ route('tamu.tambah') }}" class="btn btn-sm btn-success mr-2">
 	+ Pengunjung
 </a>
@@ -36,7 +40,7 @@
 						<td>{{ $tamu->created_at }}</td>
 						<td><a href="{{ route('tamu.detail',['tamu' => $tamu->id]) }}">{{ $tamu->nama_tamu }}</a></td>
 						<td>{{ $tamu->instansi ?? 'N/A' }}</td>
-						<td>{{ $tamu->user }}</td>
+						<td>{{ User::where('nama',$tamu->user)->first()->nama_lengkap }}</td>
 					</tr>
 					@empty
 					<td colspan="5" class="text-center"><i>Tidak ada data...</i></td>

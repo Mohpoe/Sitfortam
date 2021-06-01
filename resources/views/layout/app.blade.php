@@ -28,7 +28,7 @@ $user = App\Models\User::where('nama',session()->get('nama'))->first();
 				<ul class="navbar-nav mr-auto">
 					@if(session()->has('nama'))
 					<li class="nav-item">
-						<a class="nav-link" href="{{ route('tamu.beranda') }}">
+						<a class="nav-link" href="{{ route('tamu.pejabat') }}">
 							Beranda
 						</a>
 					</li>
@@ -37,17 +37,19 @@ $user = App\Models\User::where('nama',session()->get('nama'))->first();
 							Buku Tamu
 						</a>
 					</li>
+					@can('tambahTamu',App\Models\User::class)
 					<li class="nav-item">
 						<a class="nav-link" href="{{ route('tamu.tambah') }}">
 							+ Tamu
 						</a>
 					</li>
+					@endcan
+					@can('create',App\Models\User::class)
 					<li class="nav-item">
 						<a class="nav-link" href="{{ route('user.pengguna') }}">
 							Tabel Pengguna
 						</a>
 					</li>
-					@can('create',App\Models\User::class)
 					<li class="nav-item">
 						<a class="nav-link" href="{{ route('user.daftar') }}">
 							+ Pengguna

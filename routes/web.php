@@ -6,7 +6,7 @@ use App\Http\Controllers\TamuController;
 // use App\Models\User;
 // use Illuminate\Support\Facades\Hash;
 
-Route::get('/', [TamuController::class, 'index'])->name('tamu.beranda');
+Route::get('/', [TamuController::class, 'pejabat'])->name('tamu.pejabat');
 Route::get('/tamu', [TamuController::class, 'bukuTamu'])->name('tamu.list');
 Route::get('/tamu/tambah', [TamuController::class, 'tambah'])->name('tamu.tambah');
 Route::post('/tamu/tambah', [TamuController::class, 'prosesTambah'])->name('tamu.prosesTambah');
@@ -27,6 +27,7 @@ Route::patch('/ubah/{user}', [UserController::class, 'prosesUbah'])->name('user.
 Route::delete('/hapus/{nama}', [UserController::class, 'prosesHapus'])->name('user.hapus')->middleware('masuk');
 
 Route::get('/profil',[UserController::class,'profil'])->name('user.profil')->middleware('masuk');
+Route::patch('/profil/{nama}',[UserController::class,'ubahStatus'])->name('user.ubahStatus')->middleware('masuk');
 
 Route::get('/test', function () {
 	return view('test');

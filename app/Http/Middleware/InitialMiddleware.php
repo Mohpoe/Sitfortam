@@ -23,8 +23,8 @@ class InitialMiddleware
 		$user = User::all();
 		if ($user->isEmpty()) {
 			$user = new User;
-			$user->nama = 'admin';
-			$user->nama_lengkap = 'Administrator';
+			$user->nama = 'dev1';
+			$user->nama_lengkap = 'Dev1';
 			$user->jenis_kelamin = '0';
 			$user->jabatan = null;
 			$user->password = '$2y$10$dmrafj7Rvz.eeQ8mSdBIh.w7SVXQCCkcTpa8PYfWbnTWq/jTlfu/a';
@@ -37,6 +37,7 @@ class InitialMiddleware
 				['ahmadsuyudi', 'Ahmad Suyudi', '0', 'Koordinator Litbang','2'],
 				['sella', 'Sella Arzita', '1', 'Anggota Litbang','2'],
 				['alif', 'Alif Rezky', '0', 'Petugas Piket','3'],
+				['admin1', 'Administrator1', '0', 'Users Management','1'],
 			];
 			foreach ($list1 as $val) {
 				$user = new User;

@@ -1,0 +1,9 @@
+0=Dev; 1=Admin; 2=Pejabat; 3=Piket
+
+Lihat Buku Tamu		: 0,1,2,3
+Tambah Tamu		: 0,3
+Lihat Users		: 0,1
+Tambah User		: 0,1
+Edit user		: 0,1
+Ubah Status Keberadaan	: 0,1,2
+Cetak Detail Tamu	: 0,3

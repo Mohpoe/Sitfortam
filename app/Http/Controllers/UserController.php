@@ -21,7 +21,7 @@ class UserController extends Controller
 
 		$peran = User::where('nama',session()->get('nama'))->first()->peran;
 		if ($peran == 0) {
-			$show = User::where('nama','<>','admin')->get();
+			$show = User::all();
 		} else {
 			$show = User::where('peran','>',1)->get();
 		}
@@ -43,7 +43,7 @@ class UserController extends Controller
 
 		if (Auth::attempt($validateData)) {
 			session(['nama' => $request->nama]);
-			return redirect(route('tamu.beranda'))->with('pesan', 'Berhasil Masuk');
+			return redirect(route('tamu.pejabat'))->with('pesan', 'Berhasil Masuk');
 		} else {
 			return redirect('/masuk')->with('pesan', "Gagal masuk!");
 		}
@@ -79,7 +79,7 @@ class UserController extends Controller
 		$user->status = $request->peran == '2' ? '0' : '';
 		$user->save();
 
-		return redirect(route('tamu.beranda'))->with('pesan', "Pengguna dengan nama $request->nama telah ditambahkan!");
+		return redirect(route('tamu.pejabat'))->with('pesan', "Pengguna dengan nama $request->nama telah ditambahkan!");
 	}
 
 	public function keluar()
@@ -117,18 +117,31 @@ class UserController extends Controller
 			'peran' => $request->peran,
 		]);
 
-		return redirect(route('tamu.beranda'))->with('pesan',"Pengguna dengan nama $user->nama_lengkap telah diperbarui");
+		return redirect(route('tamu.pejabat'))->with('pesan',"Pengguna dengan nama $user->nama_lengkap telah diperbarui");
 	}
 
 	public function prosesHapus($nama)
 	{
 		$user = User::where('nama',$nama)->first();
 		$user->delete();
-		return redirect(route('tamu.beranda'))->with('pesan',"Pengguna dengan nama $user->nama_lengkap telah dihapus!");
+		return redirect(route('tamu.pejabat'))->with('pesan',"Pengguna dengan nama $user->nama_lengkap telah dihapus!");
 	}
 
 	public function profil()
 	{
 		return view('user.profile',['judul' => 'Profil Pengguna']);
+	}
+
+	public function ubahStatus(Request $request, $nama)
+	{
+		$this->authorize('saya', User::class);
+		$request->validate([
+			'status' => 'required|in:0,1,2',
+		]);
+		User::where('nama',$nama)->update([
+			'status' => $request->status,
+		]);
+
+		return redirect(route('user.profil'))->with('pesan','Status Anda berhasil diperbaharui');
 	}
 }
