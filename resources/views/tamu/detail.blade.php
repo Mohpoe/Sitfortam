@@ -19,6 +19,7 @@
 
 <form action="#" method="POST">
 	@csrf
-	<button type="submit" class="btn btn-primary my-2" @cannot('tambahTamu',App\Models\User::class) disabled @endcannot>Cetak Detail</button>
+	<button type="submit" class="btn btn-primary my-2" @cannot('tambahTamu',App\Models\User::class) disabled
+		@endcannot>Cetak Detail</button>
 </form>
 @endsection
