@@ -35,6 +35,14 @@ class CreateUsersTable extends Migration
 			 * 3 = Petugas piket (penerima tamu)
 			 */
 			$table->tinyInteger('peran');
+			/**
+			 * Status di sini maksudnya adalah status keberadaan
+			 * 0 = Ada
+			 * 1 = Sibuk
+			 * 2 = Tidak ada
+			 * Diset sebagai default null untuk user dengan status != pejabat
+			 */
+			$table->enum('status',[0,1,2])->nullable();
 			$table->timestamps();
 			$table->softDeletes();
 		});

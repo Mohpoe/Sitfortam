@@ -51,6 +51,7 @@ class UserController extends Controller
 			'jabatan' => 'required',
 			'password' => 'required|confirmed',
 			'peran' => 'required|'.User::where('nama',session()->get('nama'))->first()->peran == 0 ? 'in:1,2,3' : 'in:2,3',
+			'status' => '',
 		]);
 
 		$user = new User;
@@ -60,6 +61,7 @@ class UserController extends Controller
 		$user->jabatan = $request->jabatan;
 		$user->password = Hash::make($request->password);
 		$user->peran = $request->peran;
+		$user->status = $request->peran == '2' ? '0' : '';
 		$user->save();
 
 		return redirect(route('tamu.beranda'))->with('pesan', "Pengguna dengan nama $request->nama telah ditambahkan!");
@@ -103,8 +105,9 @@ class UserController extends Controller
 		return redirect(route('tamu.beranda'))->with('pesan',"Pengguna dengan nama $user->nama_lengkap telah diperbarui");
 	}
 
-	public function prosesHapus(User $user)
+	public function prosesHapus($nama)
 	{
+		$user = User::where('nama',$nama)->first();
 		$user->delete();
 		return redirect(route('tamu.beranda'))->with('pesan',"Pengguna dengan nama $user->nama_lengkap telah dihapus!");
 	}

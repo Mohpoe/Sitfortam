@@ -26,6 +26,8 @@ class CreateTamusTable extends Migration
 			$table->string('jabatan')->nullable();
 			$table->string('instansi')->nullable();
 			$table->string('ket');
+			$table->string('tujuan');
+			$table->enum('status',[0,1]);
 			$table->string('user');
 			$table->timestamps();
 		});

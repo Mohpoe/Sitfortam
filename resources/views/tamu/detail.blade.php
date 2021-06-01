@@ -13,7 +13,8 @@
 	<li>Jabatan: {{ $tamu->jabatan }}</li>
 	<li>Instansi: {{ $tamu->instansi }}</li>
 	<li>Petugas yang menerima: {{ $tamu->user }}</li>
-	<li>Tujuan dan Keterangan: {{ $tamu->ket }}</li>
+	<li>Keterangan: {{ $tamu->ket }}</li>
+	<li>Tujuan Kunjungan: {{ App\Models\User::where('nama',$tamu->tujuan)->first()->nama_lengkap }}</li>
 </ul>
 
 <form action="{{ route('tamu.prosesTambah') }}" method="POST">

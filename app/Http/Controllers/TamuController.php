@@ -33,17 +33,20 @@ class TamuController extends Controller
 
 	public function tambah()
 	{
+		$this->authorize('tambahTamu', User::class);
 		return view('tamu.register',['judul' => 'Tambah Info Tamu']);
 	}
 
 	public function prosesTambah(Request $request)
 	{
+		$this->authorize('tambahTamu', User::class);
 		$validateData = $request->validate([
 			'nama_tamu' => 'required|min:2|max:30',
 			'jenis_kelamin' => 'required|in:0,1',
 			'jabatan' => '',
 			'instansi' => '',
 			'ket' => 'required',
+			'tujuan' => 'required',
 		]);
 
 		$tamu = new Tamu;
@@ -52,8 +55,12 @@ class TamuController extends Controller
 		$tamu->jabatan = $request->jabatan;
 		$tamu->instansi = $request->instansi;
 		$tamu->ket = $request->ket;
+		$tamu->tujuan = $request->tujuan;
 		$tamu->user = session()->get('nama');
 		$tamu->save();
+		$user_tujuan = User::where('nama',$request->tujuan)->first();
+		$user_tujuan->status = '1';
+		$user_tujuan->save();
 
 		return redirect(route('tamu.list'))->with('pesan',"Berhasil menambahkan $request->nama_tamu sebagai pengunjung");
 	}
