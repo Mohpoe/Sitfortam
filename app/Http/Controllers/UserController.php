@@ -106,6 +106,7 @@ class UserController extends Controller
 			'jabatan' => 'required',
 			'password' => 'confirmed',
 			'peran' => 'required|'.User::where('nama',session()->get('nama'))->first()->peran == 0 ? 'in:1,2,3' : 'in:2,3',
+			'status' => 'required|in:0,1,2',
 		]);
 
 		User::where('id',$user->id)->update([
@@ -115,6 +116,7 @@ class UserController extends Controller
 			'jabatan' => $request->jabatan,
 			'password' => ($request->password <> '' ? Hash::make($request->password) : $user->password),
 			'peran' => $request->peran,
+			'status' => $request->status,
 		]);
 
 		return redirect(route('tamu.pejabat'))->with('pesan',"Pengguna dengan nama $user->nama_lengkap telah diperbarui");
